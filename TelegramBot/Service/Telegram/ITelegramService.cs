@@ -34,7 +34,7 @@ namespace TelegramBot.Service.Telegram
                     }
                 };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return new ApiResult
                 {
@@ -66,7 +66,7 @@ namespace TelegramBot.Service.Telegram
                     }
                 };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return new ApiResult
                 {
@@ -98,7 +98,7 @@ namespace TelegramBot.Service.Telegram
                     }
                 };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return new ApiResult
                 {
