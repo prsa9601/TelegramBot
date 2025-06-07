@@ -13,9 +13,9 @@ namespace TelegramBot.Infrastructure
         private readonly string _userName;
         public RabbitMqHelper(IConfiguration configuration)
         {
-            _hostName = configuration.GetSection("RabbitMQ")["HostName"];
-            _userName = configuration.GetSection("RabbitMQ")["UserName"];
-            _password = configuration.GetSection("RabbitMQ")["Password"];
+            _hostName = configuration.GetSection("RabbitMQ")["HostName"]!;
+            _userName = configuration.GetSection("RabbitMQ")["UserName"]!;
+            _password = configuration.GetSection("RabbitMQ")["Password"]!;
             //var factory = new ConnectionFactory() { HostName = _hostName };
         }
         public async Task PublishMessage(TModel classModel, string? queueName, string? exchangeName, exchangeType exchange)
@@ -33,14 +33,14 @@ namespace TelegramBot.Infrastructure
             {
                 await model.QueueDeclareAsync(queueName!, true, false, false, null);
                 var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(classModel));
-                await model.BasicPublishAsync("", queueName, body);
+                await model.BasicPublishAsync("", queueName!, body);
             }
             else if (exchange == exchangeType.Fanout)
             {
                 await model.ExchangeDeclareAsync(exchangeName!, ExchangeType.Fanout,
                     true, false, null);
                 var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(classModel));
-                await model.BasicPublishAsync(exchangeName, "", body);
+                await model.BasicPublishAsync(exchangeName!, "", body);
             }
         }
 
@@ -101,9 +101,9 @@ namespace TelegramBot.Infrastructure
         private readonly string _userName;
         public RabbitMqHelper(IConfiguration configuration)
         {
-            _hostName = configuration.GetSection("RabbitMQ")["HostName"];
-            _userName = configuration.GetSection("RabbitMQ")["UserName"];
-            _password = configuration.GetSection("RabbitMQ")["Password"];
+            _hostName = configuration.GetSection("RabbitMQ")["HostName"]!;
+            _userName = configuration.GetSection("RabbitMQ")["UserName"]!;
+            _password = configuration.GetSection("RabbitMQ")["Password"]!;
             var factory = new ConnectionFactory() { HostName = _hostName };
         }
         public async Task PublishMessage(string message, string? queueName, string? exchangeName, exchangeType exchange)

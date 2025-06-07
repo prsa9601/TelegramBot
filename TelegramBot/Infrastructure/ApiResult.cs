@@ -9,7 +9,7 @@ namespace TelegramBot.Infrastructure
         public const string NotFoundDefaultMessage = "اطلاعات یافت نشد!";
 
         public static string NotFoundMessage(string value) => $"یافت نشد! {value}";
-        public MetaData MetaData { get; set; }
+        public MetaData MetaData { get; set; } = new MetaData { Message = ErrorMessage, statusCode = AppStatusCode.ServerError };
         public bool IsSuccess { get; set; }
         public static ApiResult Success()
         {
@@ -51,8 +51,8 @@ namespace TelegramBot.Infrastructure
     public class ApiResult<TData>
     {
         public bool IsSuccess { get; set; }
-        public MetaData MetaData { get; set; }
-        public TData Data { get; set; }
+        public MetaData MetaData { get; set; } = new MetaData { Message = "null", statusCode = AppStatusCode.ServerError };
+        public required TData Data { get; set; }
 
         public const string SuccessMessage = "عملیات با موفقیت انجام شد.";
         public const string ErrorMessage = "اروری سمت سرور وجود دارد!";
@@ -102,7 +102,7 @@ namespace TelegramBot.Infrastructure
     }
     public class MetaData
     {
-        public string Message { get; set; }
+        public required string Message { get; set; }
         public AppStatusCode statusCode { get; set; }
     }
     public enum AppStatusCode
